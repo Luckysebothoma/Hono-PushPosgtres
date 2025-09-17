@@ -1,0 +1,18 @@
+services:
+
+  push-posgtresv2:
+    build: .
+    container_name: push-posgtresv2
+    ports:
+      - "3015:3000"
+    environment:
+      PG_HOST: ${POSTGRES_HOST}
+      PG_USER: ${POSTGRES_USER}
+      PG_PASS: ${POSTGRES_PASSWORD}
+      PG_DB: ${POSTGRES_DATABASE}
+    networks:
+      - database
+
+networks:
+  database:
+    external: true
