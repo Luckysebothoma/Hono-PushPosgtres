@@ -12,7 +12,19 @@ services:
       PG_DB: ${POSTGRES_DATABASE}
     networks:
       - database
+      - node-exporter
+      - reactive-resume-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   database:
+    external: true
+  node-exporter:
+    external: true
+  reactive-resume-network:
     external: true
